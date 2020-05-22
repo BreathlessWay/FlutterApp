@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:FlutterApp/demo/animate.dart';
 import 'swiper.dart';
 import 'package:FlutterApp/demo/popup.dart';
+import 'accordion.dart';
+import 'tabbar.dart';
 
 class DemoRouter extends StatelessWidget {
   @override
@@ -57,6 +59,36 @@ class DemoRouter extends StatelessWidget {
                   },
                   child: new Center(
                     child: new Text('popup'),
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.only(bottom: 10.0),
+                child: new RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new AccordionScreen()),
+                    );
+                  },
+                  child: new Center(
+                    child: new Text('accordion'),
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.only(bottom: 10.0),
+                child: new RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new TabBarScreen()),
+                    );
+                  },
+                  child: new Center(
+                    child: new Text('tar bar'),
                   ),
                 ),
               )

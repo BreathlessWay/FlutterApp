@@ -24,6 +24,8 @@ class SwipeScreen extends StatefulWidget {
   SwipeScreenState createState() => new SwipeScreenState();
 }
 
+/// 要使用new TabController必须mixin SingleTickerProviderStateMixin
+/// SingleTickerProviderStateMixin只能mixin到State
 class SwipeScreenState extends State<SwipeScreen>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
