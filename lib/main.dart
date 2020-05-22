@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:FlutterApp/demo/router.dart';
+import 'package:FlutterApp/layout/home.dart';
 
 void main() => runApp(MaterialApp(
       title: 'Flutter App',
@@ -30,6 +31,21 @@ class RootApp extends StatelessWidget {
                   },
                   child: new Center(
                     child: new Text('示例项目'),
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.only(bottom: 5.0),
+                child: new RaisedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      new MaterialPageRoute(
+                          builder: (context) => new LayoutHomeScreen()),
+                    );
+                  },
+                  child: new Center(
+                    child: new Text('构建布局'),
                   ),
                 ),
               ),
