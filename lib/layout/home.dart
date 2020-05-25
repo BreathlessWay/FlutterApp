@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import 'banner.dart';
 import 'header.dart';
 import 'button.dart';
+import 'content.dart';
 
 class LayoutHomeScreen extends StatelessWidget {
   @override
@@ -10,10 +12,12 @@ class LayoutHomeScreen extends StatelessWidget {
       appBar: new AppBar(
         title: new Text('Layout'),
       ),
-      body: new Column(
+      body: new ListView(
         children: <Widget>[
+          new LayoutBanner(),
           new LayoutHeader(),
-          new LayoutButton()
+          new LayoutButton(),
+          new LayoutContent()
         ],
       ),
     );
