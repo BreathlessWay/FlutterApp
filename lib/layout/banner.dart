@@ -14,8 +14,14 @@ class LayoutBanner extends StatelessWidget {
         new Container(
           padding: EdgeInsets.all(10.0),
           decoration: new BoxDecoration(
-            color: Colors.black45,
-            borderRadius: const BorderRadius.all(const Radius.circular(10.0)),
+            gradient: new LinearGradient(
+              begin: const Alignment(0.0, -1.0),
+              end: const Alignment(0.0, 0.6),
+              colors: <Color>[
+                const Color(0xffef5350),
+                const Color(0x00ef5350)
+              ],
+            ),
           ),
           child: new Text(
             'Layout Stack',
