@@ -1,6 +1,28 @@
 import 'package:flutter/material.dart';
 
-class LayoutHeader extends StatelessWidget {
+class LayoutHeader extends StatefulWidget {
+  @override
+  LayoutHeaderState createState() => new LayoutHeaderState();
+}
+
+class LayoutHeaderState extends State<LayoutHeader> {
+  bool _isFavorite = true;
+  int _favoriteCount = 41;
+
+  void handleFavorite() {
+    if (_isFavorite) {
+      setState(() {
+        _isFavorite = false;
+        _favoriteCount = 40;
+      });
+    } else {
+      setState(() {
+        _isFavorite = true;
+        _favoriteCount = 41;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return new Padding(
@@ -31,11 +53,13 @@ class LayoutHeader extends StatelessWidget {
               ),
             ],
           )),
-          new Icon(
-            Icons.star,
-            color: Colors.red[500],
-          ),
-          new Text('41'),
+          new IconButton(
+              icon: new Icon(
+                _isFavorite ? Icons.star : Icons.star_border,
+                color: Colors.red[500],
+              ),
+              onPressed: handleFavorite),
+          new Text('$_favoriteCount'),
         ],
       ),
     );
