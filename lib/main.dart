@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:css_colors/css_colors.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:FlutterApp/demo/router.dart';
 import 'package:FlutterApp/layout/home.dart';
@@ -62,6 +64,7 @@ class RootApp extends StatelessWidget {
               new Padding(
                 padding: EdgeInsets.only(bottom: 5.0),
                 child: new RaisedButton(
+                  color: CSSColors.brown,
                   onPressed: () {
                     Navigator.pushNamed(context, Router.Demo);
                   },
@@ -78,6 +81,17 @@ class RootApp extends StatelessWidget {
                   },
                   child: new Center(
                     child: new Text('构建布局'),
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.only(bottom: 5.0),
+                child: new RaisedButton(
+                  onPressed: () {
+                    launch('http://www.breathlessway.com');
+                  },
+                  child: new Center(
+                    child: new Text('webview'),
                   ),
                 ),
               ),
