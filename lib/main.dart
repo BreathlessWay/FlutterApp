@@ -6,21 +6,36 @@ import 'package:FlutterApp/demo/router.dart';
 import 'package:FlutterApp/layout/home.dart';
 import 'package:FlutterApp/form//index.dart';
 import 'package:FlutterApp/animate/index.dart';
+import 'package:FlutterApp/count/index.dart';
 
 class Router {
   static const Demo = '/demo';
   static const Layout = '/layout';
   static const Form = '/form';
   static const Animate = '/animate';
+  static const Count = '/count';
 }
 
 void main() => runApp(MaterialApp(
       title: 'Flutter App',
       routes: <String, WidgetBuilder>{
         Router.Demo: (BuildContext context) => new DemoRouter(),
-        Router.Layout: (BuildContext context) => new LayoutHomeScreen(),
-        Router.Form: (BuildContext context) => new FormScreen(),
-        Router.Animate: (BuildContext context) => new AnimateScreen()
+        Router.Layout: (BuildContext context) => new LayoutHomeScreen(
+            title: ModalRoute.of(context).settings.arguments),
+        Router.Animate: (BuildContext context) => new AnimateScreen(),
+      },
+      /// 路由钩子
+      /// 只有未在routes路由表中声明的路由才会经过路由钩子
+      /// 只会对命名路由pushNamed生效
+      onGenerateRoute: (RouteSettings settings) {
+        return new MaterialPageRoute(builder: (BuildContext context) {
+          String routeName = settings.name;
+          print(routeName);
+          if (routeName == Router.Form) {
+            return new FormScreen();
+          }
+          return null;
+        });
       },
       home: new RootApp(),
     ));
@@ -36,6 +51,7 @@ class RootApp extends StatelessWidget {
           child: new Column(
             /// 类似 justify-content
             mainAxisAlignment: MainAxisAlignment.center,
+
             /// 类似 align-items
             crossAxisAlignment: CrossAxisAlignment.end,
             children: <Widget>[
@@ -77,7 +93,8 @@ class RootApp extends StatelessWidget {
                 padding: EdgeInsets.only(bottom: 5.0),
                 child: new RaisedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, Router.Layout);
+                    Navigator.pushNamed(context, Router.Layout,
+                        arguments: '构建布局params！');
                   },
                   child: new Center(
                     child: new Text('构建布局'),
@@ -92,6 +109,23 @@ class RootApp extends StatelessWidget {
                   },
                   child: new Center(
                     child: new Text('webview'),
+                  ),
+                ),
+              ),
+              new Padding(
+                padding: EdgeInsets.only(bottom: 5.0),
+                child: new RaisedButton(
+                  onPressed: () async {
+                    var backResult = await Navigator.of(context).push(
+                        MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                                new CountScreen(),
+                            fullscreenDialog: true));
+
+                    print(backResult);
+                  },
+                  child: new Center(
+                    child: new Text('计数器'),
                   ),
                 ),
               ),

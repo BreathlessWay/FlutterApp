@@ -6,11 +6,15 @@ import 'button.dart';
 import 'content.dart';
 
 class LayoutHomeScreen extends StatelessWidget {
+  final title;
+
+  LayoutHomeScreen({this.title});
+
   @override
   Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(
-        title: new Text('Layout'),
+        title: new Text('标题$title'),
       ),
       body: new ListView(
         children: <Widget>[
