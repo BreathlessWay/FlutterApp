@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:css_colors/css_colors.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -16,7 +18,23 @@ class Router {
   static const Count = '/count';
 }
 
-void main() => runApp(MaterialApp(
+void collectLog(String line) {
+  /// 上报log
+}
+void reportErrorAndLog(FlutterErrorDetails details) {
+  /// 上报错误日志
+}
+
+FlutterErrorDetails makeDetails(Object obj, StackTrace stack) {
+  return new FlutterErrorDetails(stack: stack);
+}
+
+void main() {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    reportErrorAndLog(details);
+  };
+  runZoned(
+    () => runApp(MaterialApp(
       title: 'Flutter App',
       routes: <String, WidgetBuilder>{
         Router.Demo: (BuildContext context) => new DemoRouter(),
@@ -24,6 +42,7 @@ void main() => runApp(MaterialApp(
             title: ModalRoute.of(context).settings.arguments),
         Router.Animate: (BuildContext context) => new AnimateScreen(),
       },
+
       /// 路由钩子
       /// 只有未在routes路由表中声明的路由才会经过路由钩子
       /// 只会对命名路由pushNamed生效
@@ -38,7 +57,18 @@ void main() => runApp(MaterialApp(
         });
       },
       home: new RootApp(),
-    ));
+    )),
+    zoneSpecification: ZoneSpecification(
+      print: (Zone self, ZoneDelegate parent, Zone zone, String line) {
+        collectLog(line); // 收集日志
+      },
+    ),
+    onError: (Object obj, StackTrace stack) {
+      FlutterErrorDetails details = makeDetails(obj, stack);
+      reportErrorAndLog(details);
+    },
+  );
+}
 
 class RootApp extends StatelessWidget {
   @override
